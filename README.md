@@ -1,6 +1,6 @@
-# Task Management API & GUI
+# Task Manager
 
-A robust task management REST API and Javascript Web GUI built with Laravel natively, demonstrating correct Eloquent usage, validation, and strict business rules implementation.
+This is a clean and simple Task Management API and Web application built with Laravel. It handles creating tasks, updating their status, preventing duplicate entries, and showing a daily summary report.
 
 ## Features Supported
 - **Interactive GUI**: A modern Vanilla Javascript & Tailwind CSS frontend application communicating dynamically with the API natively.
