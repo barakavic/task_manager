@@ -4,7 +4,7 @@ This is a clean and simple Task Management API and Web application built with La
 
 ## Features Supported
 - **Interactive GUI**: A modern Vanilla Javascript & Tailwind CSS frontend application communicating dynamically with the API natively.
-- **RESTful Endpoints**: Full CRUD API endpoints adhering strictly to validation criteria.
+- **RESTful Endpoints**: Full CRUD API endpoints with **dynamic filtering** (by status, priority, and date).
 - **Rules Executed**: No duplicate task titles per date, progressive state-machine status enforcement (`pending` -> `in_progress` -> `done`), and restricted deletion.
 
 ## How to Run Locally using Docker (Recommended)
@@ -12,11 +12,24 @@ This requires only Docker to be installed on your machine.
 
 1. Clone this repository.
 2. Run `cp .env.example .env`.
-3. Start the application via Laravel Sail:
+3. If you don't have local PHP/Composer installed, run this initial setup command first:
+   ```bash
+   docker run --rm \
+       -u "$(id -u):$(id -g)" \
+       -v "$(pwd):/var/www/html" \
+       -w /var/www/html \
+       laravelsail/php83-composer:latest \
+       composer install --ignore-platform-reqs
+   ```
+4. Start the application via Laravel Sail:
    ```bash
    ./vendor/bin/sail up -d
    ```
-4. Run the database migrations to set up MySQL:
+5. Generate the application encryption key:
+   ```bash
+   ./vendor/bin/sail artisan key:generate
+   ```
+6. Run the database migrations to set up MySQL:
    ```bash
    ./vendor/bin/sail artisan migrate
    ```
@@ -79,6 +92,18 @@ paths:
           schema:
             type: string
             enum: [pending, in_progress, done]
+          required: false
+        - in: query
+          name: priority
+          schema:
+            type: string
+            enum: [high, medium, low]
+          required: false
+        - in: query
+          name: due_date
+          schema:
+            type: string
+            format: date
           required: false
       responses:
         '200':
