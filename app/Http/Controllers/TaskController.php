@@ -41,6 +41,14 @@ class TaskController extends Controller
             $query->where('status', $request->input('status'));
         }
 
+        if ($request->has('priority')) {
+            $query->where('priority', $request->input('priority'));
+        }
+
+        if ($request->has('due_date')) {
+            $query->where('due_date', $request->input('due_date'));
+        }
+
         $tasks = $query->orderByRaw("FIELD(priority, 'high', 'medium', 'low')")
             ->orderBy('due_date', 'asc')
             ->get();

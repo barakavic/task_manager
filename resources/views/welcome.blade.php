@@ -44,8 +44,20 @@
         <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
             <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-4 space-y-4 md:space-y-0">
                 <h2 class="text-xl font-semibold text-gray-700">Task List</h2>
-                <div class="flex space-x-2">
-                    <input type="text" id="searchInput" placeholder="Search tasks..." class="p-2 border rounded-md text-sm w-full md:w-auto" oninput="renderTasks()">
+                <div class="flex flex-wrap gap-2">
+                    <input type="text" id="searchInput" placeholder="Search title..." class="p-2 border rounded-md text-sm w-full md:w-auto" oninput="renderTasks()">
+                    <select id="filterPriority" class="p-2 border rounded-md text-sm" onchange="fetchTasks()">
+                        <option value="">All Priorities</option>
+                        <option value="high">High Only</option>
+                        <option value="medium">Medium Only</option>
+                        <option value="low">Low Only</option>
+                    </select>
+                    <select id="filterStatus" class="p-2 border rounded-md text-sm" onchange="fetchTasks()">
+                        <option value="">All Statuses</option>
+                        <option value="pending">Pending</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="done">Done</option>
+                    </select>
                     <select id="sortPriority" class="p-2 border rounded-md text-sm" onchange="renderTasks()">
                         <option value="default">Default Sort</option>
                         <option value="high-low">Priority: High to Low</option>
@@ -129,7 +141,19 @@
 
         async function fetchTasks() {
             try {
-                const res = await fetch(API_URL, { headers: { 'Accept': 'application/json' }});
+                const priority = document.getElementById('filterPriority').value;
+                const status = document.getElementById('filterStatus').value;
+                
+                let url = API_URL;
+                const params = new URLSearchParams();
+                if (priority) params.append('priority', priority);
+                if (status) params.append('status', status);
+                
+                if (params.toString()) {
+                    url += '?' + params.toString();
+                }
+
+                const res = await fetch(url, { headers: { 'Accept': 'application/json' }});
                 const tasks = await res.json();
                 
                 if (tasks.message) {
