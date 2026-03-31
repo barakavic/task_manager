@@ -20,7 +20,7 @@ class TaskController extends Controller
                 })
             ],
             'due_date' => 'required|date|after_or_equal:today',
-            'priority' => ['required', Rule::in(['low', ' medium', 'high'])],
+            'priority' => ['required', Rule::in(['low', 'medium', 'high'])],
         ]);
 
         $task = Task::create([
