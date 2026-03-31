@@ -11,8 +11,11 @@ This is a clean and simple Task Management API and Web application built with La
 This requires only Docker to be installed on your machine.
 
 1. Clone this repository.
-2. Run `cp .env.example .env`.
-3. If you don't have local PHP/Composer installed, run this initial setup command first:
+2. Prepare the environment file:
+   - **(Linux/Mac/WSL)**: `cp .env.example .env`
+   - **(Windows/CMD)**: `copy .env.example .env`
+
+3. If you don't have local PHP/Composer installed, run this initial setup (Linux/Mac/WSL only):
    ```bash
    docker run --rm \
        -u "$(id -u):$(id -g)" \
@@ -21,18 +24,18 @@ This requires only Docker to be installed on your machine.
        laravelsail/php83-composer:latest \
        composer install --ignore-platform-reqs
    ```
+
 4. Start the application via Laravel Sail:
-   ```bash
-   ./vendor/bin/sail up -d
-   ```
+   - **(Linux/Mac/WSL)**: `./vendor/bin/sail up -d`
+   - **(Windows/CMD)**: `vendor\bin\sail up -d`
+
 5. Generate the application encryption key:
-   ```bash
-   ./vendor/bin/sail artisan key:generate
-   ```
+   - **(Linux/Mac/WSL)**: `./vendor/bin/sail artisan key:generate`
+   - **(Windows/CMD)**: `vendor\bin\sail artisan key:generate`
+
 6. Run the database migrations to set up MySQL:
-   ```bash
-   ./vendor/bin/sail artisan migrate
-   ```
+   - **(Linux/Mac/WSL)**: `./vendor/bin/sail artisan migrate`
+   - **(Windows/CMD)**: `vendor\bin\sail artisan migrate`
 
 ## How to use the Interactive GUI
 Once the Docker or standard PHP server is successfully running:
