@@ -2,6 +2,9 @@
 
 This is a clean and simple Task Management API and Web application built with Laravel. It handles creating tasks, updating their status, preventing duplicate entries, and showing a daily summary report.
 
+### Live Demo
+You can view the deployed application here: **[https://web-production-4a630.up.railway.app](https://web-production-4a630.up.railway.app)**
+
 ## Features Supported
 - **Interactive GUI**: A modern Vanilla Javascript & Tailwind CSS frontend application communicating dynamically with the API natively.
 - **RESTful Endpoints**: Full CRUD API endpoints with **dynamic filtering** (by status, priority, and date).
